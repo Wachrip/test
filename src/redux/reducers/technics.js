@@ -27,6 +27,24 @@ const initialState = {
       date: "2022-01-12",
       description: "Good stuff",
     },
+    {
+      id: Math.floor(Math.random() * 1000000).toString(),
+      category: "Cutter",
+      company: "Samsung",
+      model: "Insaneone2",
+      price: "99.99",
+      date: "2022-01-12",
+      description: "Good stuff",
+    },
+    {
+      id: Math.floor(Math.random() * 1000000).toString(),
+      category: "Cutter",
+      company: "Samsung",
+      model: "Insaneone3",
+      price: "99.99",
+      date: "2022-01-12",
+      description: "Good stuff",
+    },
   ],
 };
 

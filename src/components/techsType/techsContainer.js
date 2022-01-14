@@ -6,6 +6,7 @@ import TechType from ".";
 import { sortByDate } from "../../redux/reducers/technics";
 import { FilterBy } from "../filterBy";
 import Header from "../header";
+import { Pagination } from "../pages/pagination";
 import { SortBy } from "../sortBy";
 
 const TechContainer = () => {
@@ -14,6 +15,13 @@ const TechContainer = () => {
   const { category } = useParams();
   const [arrayToShow, setArrayToShow] = useState(technics);
   let arrayToRender = arrayToShow;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [techPerPage] = useState(2);
+
+  const indexOfLastTech = currentPage * techPerPage;
+  const indexOfFirstTech = indexOfLastTech - techPerPage;
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const onSortSelectHandler = (e) => {
     dispatch(sortByDate(e.target.value));
@@ -40,12 +48,19 @@ const TechContainer = () => {
     arrayToRender = arrayToShow.filter((it) => it.category === "Cutter");
   }
 
+  const currentTechs = arrayToRender.slice(indexOfFirstTech, indexOfLastTech);
+
   return (
     <div className="block">
       <Header />
       <SortBy onSortSelectHandler={onSortSelectHandler} />
       <FilterBy onFilterSelectHandler={onFilterSelectHandler} />
-      <TechType arrayToRender={arrayToRender} />
+      <TechType arrayToRender={currentTechs} />
+      <Pagination
+        techsPerPage={techPerPage}
+        paginate={paginate}
+        totalTechs={arrayToRender.length}
+      />
     </div>
   );
 };
