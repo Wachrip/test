@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import TechType from ".";
-import { sortByDate } from "../../redux/reducers/technics";
+import {
+  sortByDate,
+  sortByPriceHighToLow,
+  sortByPriceLowToHigh,
+} from "../../redux/reducers/technics";
 import { FilterBy } from "../filterBy";
 import Header from "../header";
 import { Pagination } from "../pages/pagination";
@@ -23,8 +27,25 @@ const TechContainer = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  console.log(arrayToRender);
+
+  const sortByDateIn = () => {
+    console.log("+");
+    arrayToShow.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    setArrayToShow(arrayToShow);
+  };
+
   const onSortSelectHandler = (e) => {
-    dispatch(sortByDate(e.target.value));
+    if (e.target.value === "Date") {
+      sortByDateIn();
+      // dispatch(sortByDate(e.target.value));
+    }
+    if (e.target.value === "highToLow")
+      dispatch(sortByPriceHighToLow(e.target.value));
+    if (e.target.value === "lowToHigh")
+      dispatch(sortByPriceLowToHigh(e.target.value));
   };
 
   const onFilterSelectHandler = (e) => {

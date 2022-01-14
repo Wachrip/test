@@ -1,150 +1,218 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
-import { deleteTech, editTech } from "../../redux/reducers/technics";
-import Header from "../header";
+import React from "react";
 
-const ChosenTechEditing = () => {
-  const dispatch = useDispatch();
-  const { techId } = useParams();
-  const technics = useSelector((s) => s.technics.technics);
-  const navigate = useNavigate();
-
-  const currentTech = technics.find((t) => t.id === techId);
-
-  const [category, setCategory] = useState(currentTech.category);
-  const [company, setCompany] = useState(currentTech.company);
-  const [model, setModel] = useState(currentTech.model);
-  const [price, setPrice] = useState(currentTech.price);
-  const [description, setDescription] = useState(currentTech.description);
-  const [date, setDate] = useState(currentTech.date);
-
-  const onCategoryChanged = (e) => {
-    setCategory(e.target.value);
-  };
-
-  const onCompanyChanged = (e) => {
-    setCompany(e.target.value);
-  };
-
-  const onModelChanged = (e) => {
-    setModel(e.target.value);
-  };
-
-  const onPriceChanged = (e) => {
-    setPrice(e.target.value);
-  };
-
-  const onDescriptionChanged = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const onDateChanged = (e) => {
-    setDate(e.target.value);
-  };
-
-  let onEditButtonClick = () => {
-    if (!category) {
-      throw Error("Вы не выбрали категорию товара.");
-    }
-    if (!company) {
-      throw Error("Вы не выбрали компанию.");
-    }
-
-    if (!model) {
-      throw Error("Введите наименование товара");
-    }
-
-    if (price < 0) {
-      throw Error("Цена не может быть меньше 0.");
-    }
-
-    if (description.length > 100) {
-      throw Error("Описание не должно превышать 100 символов");
-    }
-
-    let currentDate = new Date();
-
-    var currentMonth = currentDate.getUTCMonth() + 1;
-    var currentDay = currentDate.getUTCDate();
-    var currentYear = currentDate.getUTCFullYear();
-
-    let year = date.split("-")[0];
-    let month = date.split("-")[1];
-    let day = date.split("-")[2];
-
-    if (currentYear < year || currentMonth < month || currentDay < day) {
-      throw Error("Дата добавления не может быть позже чем сегодняшнее число.");
-    }
-
-    let editingData = {
-      id: techId,
-      category: category,
-      company: company,
-      model: model,
-      price: price,
-      date: date,
-      description: description,
-    };
-
-    dispatch(editTech(editingData));
-    navigate(`/techs/${techId}`);
-  };
-
-  const onDeleteButtonClick = () => {
-    dispatch(deleteTech(techId));
-  };
-
+const ChosenTechEditing = ({
+  category,
+  onCategoryChanged,
+  company,
+  onCompanyChanged,
+  model,
+  onModelChanged,
+  price,
+  onPriceChanged,
+  date,
+  onDateChanged,
+  description,
+  onDescriptionChanged,
+  onEditButtonClick,
+  onDeleteButtonClick,
+  techId,
+}) => {
   return (
     <div>
-      <Header />
-      <div className="form">
-        <label htmlFor="category">Category</label>
-        <input
-          type="text"
-          name="category"
-          value={category}
-          onChange={onCategoryChanged}
-        />
+      <div>
+        <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+          <form>
+            <div className="form-group mb-6">
+              <input
+                type="text"
+                name="category"
+                value={category}
+                onChange={onCategoryChanged}
+                className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              />
+            </div>
 
-        <label htmlFor="company">Company</label>
-        <input
-          type="text"
-          name="company"
-          value={company}
-          onChange={onCompanyChanged}
-        />
+            <div className="form-group mb-6">
+              <input
+                type="text"
+                name="company"
+                value={company}
+                onChange={onCompanyChanged}
+                className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              />
+            </div>
 
-        <label htmlFor="model">Model</label>
-        <input
-          type="text"
-          name="model"
-          value={model}
-          onChange={onModelChanged}
-        />
+            <div className="form-group mb-6">
+              <input
+                type="text"
+                name="model"
+                value={model}
+                onChange={onModelChanged}
+                className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              />
+            </div>
 
-        <label htmlFor="price">Price</label>
-        <input
-          type="text"
-          name="price"
-          value={price}
-          onChange={onPriceChanged}
-        />
+            <div className="form-group mb-6">
+              <input
+                type="number"
+                name="price"
+                value={price}
+                onChange={onPriceChanged}
+                className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              />
+            </div>
 
-        <label htmlFor="date">Date</label>
-        <input type="date" name="date" value={date} onChange={onDateChanged} />
+            <div className="form-group mb-6">
+              <input
+                type="date"
+                name="date"
+                value={date}
+                onChange={onDateChanged}
+                className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              />
+            </div>
 
-        <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          name="description"
-          value={description}
-          onChange={onDescriptionChanged}
-        />
+            <div className="form-group mb-6">
+              <textarea
+                className="
+        form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      "
+                rows="3"
+                placeholder="Описание"
+                type="text"
+                name="description"
+                value={description}
+                onChange={onDescriptionChanged}
+              ></textarea>
+            </div>
+            <button
+              onClick={onEditButtonClick}
+              className="
+      w-full
+      px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out"
+            >
+              Редактировать
+            </button>
 
-        <button onClick={onEditButtonClick}>Edit</button>
-        <button onClick={onDeleteButtonClick}>Delete</button>
+            <button
+              onClick={onDeleteButtonClick}
+              className="
+      w-full
+      px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out"
+            >
+              Удалить
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

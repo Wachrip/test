@@ -52,6 +52,8 @@ const ADD_TECH = "ADD_TECH";
 const EDIT_TECH = "EDIT_TECH";
 const DELETE_TECH = "DELETE_TECH";
 const SORT_BY_DATE = "SORT_BY_DATE";
+const SORT_BY_PRICE_HIGH_TO_LOW = "SORT_BY_PRICE_HIGH_TO_LOW";
+const SORT_BY_PRICE_LOW_TO_HIGH = "SORT_BY_PRICE_LOW_TO_HIGH";
 
 let test = (state = initialState, action) => {
   switch (action.type) {
@@ -83,14 +85,37 @@ let test = (state = initialState, action) => {
       };
     }
     case SORT_BY_DATE: {
-      console.log(action.sortType);
-
+      console.log("date");
       return {
         ...state,
         technics: Array.from(
           state.technics.sort((a, b) => {
             return new Date(b.date) - new Date(a.date);
           })
+        ),
+      };
+    }
+    case SORT_BY_PRICE_HIGH_TO_LOW: {
+      console.log("highToLow");
+      return {
+        ...state,
+        technics: Array.from(
+          state.technics.sort((a, b) => {
+            return b.price - a.price;
+          })
+        ),
+      };
+    }
+    case SORT_BY_PRICE_LOW_TO_HIGH: {
+      console.log("lowToHigh");
+      return {
+        ...state,
+        technics: Array.from(
+          state.technics
+            .sort((a, b) => {
+              return b.price - a.price;
+            })
+            .reverse()
         ),
       };
     }
@@ -121,6 +146,14 @@ export function deleteTech(id) {
 
 export function sortByDate(sortType) {
   return { type: SORT_BY_DATE, sortType };
+}
+
+export function sortByPriceHighToLow(sortType) {
+  return { type: SORT_BY_PRICE_HIGH_TO_LOW, sortType };
+}
+
+export function sortByPriceLowToHigh(sortType) {
+  return { type: SORT_BY_PRICE_LOW_TO_HIGH, sortType };
 }
 
 export default test;

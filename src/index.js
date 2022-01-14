@@ -4,11 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux";
 
-import AddForm from "./components/addForm";
 import ChosenTech from "./components/chosenTech";
-import ChosenTechEditing from "./components/chosenTechEditing";
 import Main from "./components/main/Main";
 import TechContainer from "./components/techsType/techsContainer";
+import AddFormContainer from "./components/addForm/addFormContainer";
+import ChosenTechEditingContainer from "./components/chosenTechEditing/chosenTechEditingContainer";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,9 +17,12 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/tech/:category" element={<TechContainer />} />
-          <Route path="add" element={<AddForm />} />
+          <Route path="add" element={<AddFormContainer />} />
           <Route path="/techs/:techId" element={<ChosenTech />} />
-          <Route path="/edit/:techId" element={<ChosenTechEditing />} />
+          <Route
+            path="/edit/:techId"
+            element={<ChosenTechEditingContainer />}
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
