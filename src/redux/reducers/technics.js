@@ -54,6 +54,7 @@ const DELETE_TECH = "DELETE_TECH";
 const SORT_BY_DATE = "SORT_BY_DATE";
 const SORT_BY_PRICE_HIGH_TO_LOW = "SORT_BY_PRICE_HIGH_TO_LOW";
 const SORT_BY_PRICE_LOW_TO_HIGH = "SORT_BY_PRICE_LOW_TO_HIGH";
+const FILTER_BY_PRICE = "FILTER_BY_PRICE";
 
 let test = (state = initialState, action) => {
   switch (action.type) {
@@ -119,7 +120,21 @@ let test = (state = initialState, action) => {
         ),
       };
     }
-
+    case FILTER_BY_PRICE: {
+      // console.log(action.from, action.to);
+      // console.log(state.technics.map((it) => it.price));
+      console.log(
+        state.technics.filter(
+          (it) => +it.price >= action.from && +it.price <= action.to
+        )
+      );
+      return {
+        ...state,
+        technics: state.technics.filter(
+          (it) => +it.price >= action.from && +it.price <= action.to
+        ),
+      };
+    }
     default:
       return {
         ...state,
@@ -154,6 +169,10 @@ export function sortByPriceHighToLow(sortType) {
 
 export function sortByPriceLowToHigh(sortType) {
   return { type: SORT_BY_PRICE_LOW_TO_HIGH, sortType };
+}
+
+export function filterByPriceFromTo(from, to) {
+  return { type: FILTER_BY_PRICE, from, to };
 }
 
 export default test;

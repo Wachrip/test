@@ -21,7 +21,7 @@ const ChosenTechEditing = ({
     <div>
       <div>
         <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-          <form>
+          <div>
             <div className="form-group mb-6">
               <input
                 type="text"
@@ -211,7 +211,7 @@ const ChosenTechEditing = ({
             >
               Удалить
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>

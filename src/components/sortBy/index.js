@@ -9,7 +9,7 @@ export const SortBy = ({ onSortSelectHandler }) => {
     //     <option value="Date">Date</option>
     //   </select>
     // </div>
-    <div className="flex justify-center">
+    <div className="flex">
       <div className="mb-3 xl:w-96">
         <label htmlFor="sort">Сортировать по: </label>
         <select
