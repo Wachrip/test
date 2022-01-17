@@ -4,7 +4,7 @@ export const FilterBy = ({ onFilterSelectHandler }) => {
   return (
     <div>
       <div className="flex">
-        <div className="mb-3 xl:w-96">
+        <div className="mb-3 w-96">
           <label htmlFor="sort">Отфильтровать по компании: </label>
           <select
             name="sort"

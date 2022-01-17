@@ -10,7 +10,7 @@ export const SortBy = ({ onSortSelectHandler }) => {
     //   </select>
     // </div>
     <div className="flex">
-      <div className="mb-3 xl:w-96">
+      <div className="mb-3 w-96">
         <label htmlFor="sort">Сортировать по: </label>
         <select
           name="sort"
